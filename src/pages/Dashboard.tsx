@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { RootState } from "../store";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../features/data/dataSlice';
@@ -8,13 +9,17 @@ function Dashboard() {
     // Use useSelector to access the fetched data from the Redux store
     const { data, loading, error } = useSelector((state: RootState) => state.data);
 
-    const handleFetchData = () => {
+    // const handleFetchData = () => {
+    //     dispatch(fetchData());
+    // }
+    
+    useEffect(() => {
         dispatch(fetchData());
-    }
+      }, []);
 
     return (
         <div>
-            <button onClick={handleFetchData}>Fetch Data</button>
+            {/* <button onClick={handleFetchData}>Fetch Data</button> */}
 
             {/* Display fetched data here */}
             {loading === 'pending' && <p>Loading data...</p>}
