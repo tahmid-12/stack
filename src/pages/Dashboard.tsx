@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { RootState } from "../store";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../features/data/dataSlice';
+import { Sidebar } from '../components';
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -12,45 +13,53 @@ function Dashboard() {
     // const handleFetchData = () => {
     //     dispatch(fetchData());
     // }
-    
+
     useEffect(() => {
         dispatch(fetchData());
-      }, []);
+    }, []);
 
     return (
-        <div>
+        <div className='flex flex-row'>
             {/* <button onClick={handleFetchData}>Fetch Data</button> */}
 
             {/* Display fetched data here */}
-            {loading === 'pending' && <p>Loading data...</p>}
-            {error && <p>Error: {error}</p>}
-            {data && (
-                <div>
-                    <h2>Fetched Data:</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className="border p-2">ID</th>
-                                <th className="border p-2">Avatar</th>
-                                <th className="border p-2">User</th>
-                                <th className="border p-2">Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.data.map((item, index) => (
-                                <tr key={index}>
-                                    <td className="border p-2">{index + 1}</td>
-                                    <td className="border p-2">
-                                        <img src={item.avatar} alt="Avatar" className="h-10 w-10 object-cover rounded-full" />
-                                    </td>
-                                    <td className="border p-2">{item.first_name} {item.last_name}</td>
-                                    <td className="border p-2">{item.email}</td>
+            <div className='w-1/5'>
+                {/* <h2 className='text-base text-heading font-[600]'>Dashboard</h2> */}
+                <Sidebar />
+            </div>
+            <div className='w-4/5 ml-[40px]'>
+                <h2 className='text-base text-heading font-[600]'>Users List</h2>
+                {loading === 'pending' && <p>Loading data...</p>}
+                {error && <p>Error: {error}</p>}
+                {data && (
+                    <div>
+                        <table className='w-full mt-[43px]'>
+                            <thead className='bg-[#fafbfc] rounded-[12px]'>
+                                <tr>
+                                    <th className="border-b-0 p-2">ID</th>
+                                    <th className="border-b-0 p-2">Avatar</th>
+                                    <th className="border-b-0 p-2">User</th>
+                                    <th className="border-b-0 p-2">Email</th>
+                                    <th className="border-b-0 p-2">Options</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                            </thead>
+                            <tbody>
+                                {data.data.map((item, index) => (
+                                    <tr key={index}>
+                                        <td className="border-b-0 p-2 text-center">{index + 1}</td>
+                                        <td className="border-b-0 p-2 text-center">
+                                            <img src={item.avatar} alt="Avatar" className="h-10 w-10 object-cover rounded-full" />
+                                        </td>
+                                        <td className="border-b-0 p-2 text-center">{item.first_name} {item.last_name}</td>
+                                        <td className="border-b-0 p-2 text-center">{item.email}</td>
+                                        <td className="border-b-0 p-2 text-center">...</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
