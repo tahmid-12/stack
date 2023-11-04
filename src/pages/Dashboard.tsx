@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { RootState } from "../store";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../features/data/dataSlice';
-import { Sidebar } from '../components';
+import { Sidebar,Searchbar } from '../components';
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -28,6 +28,7 @@ function Dashboard() {
                 <Sidebar />
             </div>
             <div className='w-4/5 ml-[40px]'>
+                <Searchbar />
                 <h2 className='text-base text-heading font-[600]'>Users List</h2>
                 {loading === 'pending' && <p>Loading data...</p>}
                 {error && <p>Error: {error}</p>}
